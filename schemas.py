@@ -52,4 +52,4 @@ class HealthRecordResponse(BaseModel):
     blood_glucose: float
 
     class Config:
-        from_attributes = True
+        orm_mode = True

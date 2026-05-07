@@ -23,14 +23,16 @@ def sync_health(
         HealthRecord.date == date_only
     ).first()
 
+    data_dict = data.dict(exclude={"date"})
+
     if record:
-        for field, value in data.model_dump(exclude={"date"}).items():
+        for field, value in data_dict.items():
             setattr(record, field, value)
     else:
         record = HealthRecord(
             user_id=current_user.id,
             date=date_only,
-            **data.model_dump(exclude={"date"})
+            **data_dict
         )
         db.add(record)
 
